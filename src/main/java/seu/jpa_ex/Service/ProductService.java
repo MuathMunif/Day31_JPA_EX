@@ -48,4 +48,22 @@ public class ProductService {
         productRepository.delete(productModel);
         return true;
     }
+
+    // extra endpoints
+
+    public int getProductCount(Integer id){
+        ProductModel productModel = productRepository.getById(id);
+        if (productModel == null) {
+            return 0;
+        }
+        return productModel.getSoldCount();
+    }
+
+    public double getProductIncome(Integer id){
+        ProductModel productModel = productRepository.getById(id);
+        if (productModel == null) {
+            return 0;
+        }
+        return productModel.getTotalIncome();
+    }
 }

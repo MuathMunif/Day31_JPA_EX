@@ -101,6 +101,10 @@ public class MerchantStockService {
                 if (stock.getStock() <= 0) {
                     return "Product is out of stock";
                 }
+                if (userModel.isSubscription()){
+                    double discount = productModel.getPrice() * 0.20;
+                    productModel.setPrice(productModel.getPrice() - discount);
+                }
 
                 if (userModel.getBalance() < productModel.getPrice()) {
                     return "User balance is not enough";
@@ -108,7 +112,9 @@ public class MerchantStockService {
 
                 userModel.setBalance(userModel.getBalance() - productModel.getPrice());
                 stock.setStock(stock.getStock() - 1);
-
+                productModel.setSoldCount(productModel.getSoldCount() + 1);
+                productModel.setTotalIncome(productModel.getTotalIncome() + productModel.getPrice());
+                productRepository.save(productModel);
                 userRepository.save(userModel);
                 merchantStockRepository.save(stock);
 

@@ -54,4 +54,24 @@ public class UserController {
         }
         return ResponseEntity.status(400).body(new ApiResponse("User Not Found"));
     }
+
+    //Extra for admin
+    @PutMapping("/admin-de-active-user/{adminid}/{userid}")
+    public ResponseEntity<?> adminDeActiveUser(@PathVariable Integer adminid,@PathVariable Integer userid){
+        String response = userService.adminDeActiveUser(adminid,userid);
+        if(response.equals("User has been Deactivated")){
+            return ResponseEntity.status(200).body(new ApiResponse("User has been Deactivated"));
+        }
+        return ResponseEntity.status(400).body(new ApiResponse(response));
+    }
+
+    //Extra user Subscription
+    @PutMapping("/user-subscription/{id}")
+    public ResponseEntity<?> userSubscription(@PathVariable Integer id) {
+        String response = userService.userSubscription(id);
+        if(response.equals("User has been subscribed")){
+            return ResponseEntity.status(200).body(new ApiResponse("User has been Subscribed"));
+        }
+        return ResponseEntity.status(400).body(new ApiResponse(response));
+    }
 }

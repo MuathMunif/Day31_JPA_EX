@@ -56,6 +56,17 @@ public class ProductController {
         return ResponseEntity.status(400).body(new ApiResponse("Product not found"));
     }
 
+    //Extra to check the sales for product
+    @GetMapping("/sales/{id}")
+    public ResponseEntity<?> getProductCount(@PathVariable Integer id){
+        return ResponseEntity.status(200).body(productService.getProductCount(id));
+    }
+
+    //Extra to get all product income
+    @GetMapping("/get-product-income/{id}")
+    public ResponseEntity<?> getProductIncome(@PathVariable Integer id){
+        return ResponseEntity.status(200).body(productService.getProductIncome(id));
+    }
 
 
 }

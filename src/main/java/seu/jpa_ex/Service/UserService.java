@@ -46,4 +46,42 @@ public class UserService {
         userRepository.delete(user);
         return true;
     }
+
+
+    //Admin deActive user
+    public String adminDeActiveUser(Integer adminId , Integer userId) {
+        UserModel admin = userRepository.getById(adminId);
+        UserModel user = userRepository.getById(userId);
+        if(admin == null) {
+            return "Admin does not exist";
+        }
+        if(!admin.getRole().equalsIgnoreCase("admin")) {
+            return "You are not an admin";
+        }
+        if(user == null) {
+            return "User does not exist";
+        }
+        if (!user.isActive()) {
+            return user.getUsername()+" already not active";
+        }
+        user.setActive(false);
+        userRepository.save(user);
+        return "User has been Deactivated";
+    }
+
+
+    //User subscription
+    public String userSubscription (Integer userId) {
+        UserModel user = userRepository.getById(userId);
+        if(user == null) {
+            return "User does not exist";
+        }
+        if (user.getBalance() < 50){
+            return "You have not enough money";
+        }
+        user.setBalance(user.getBalance() - 50);
+        user.setSubscription(true);
+        userRepository.save(user);
+        return "User has been subscribed";
+    }
 }

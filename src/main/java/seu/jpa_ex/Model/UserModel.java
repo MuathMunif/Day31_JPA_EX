@@ -45,5 +45,7 @@ public class UserModel {
     @Column(columnDefinition = "BOOLEAN DEFAULT TRUE")
     private boolean active = true;
 
+    @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean subscription = false;
 }
 

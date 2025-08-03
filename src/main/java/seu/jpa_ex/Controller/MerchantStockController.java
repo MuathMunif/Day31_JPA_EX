@@ -74,7 +74,7 @@ public class MerchantStockController {
     @PutMapping("/buy-product/{userid}/{productid}/{merchantid}")
     public ResponseEntity<?> buyProduct(@PathVariable Integer userid,@PathVariable Integer productid,@PathVariable Integer merchantid){
         String response = merchantStockService.buyProduct(userid,productid,merchantid);
-        if(response.equals("Purchase successful")){
+        if(response.equals("Purchase done successfully")){
             return ResponseEntity.status(200).body(new ApiResponse("Purchase successful"));
         }
         return ResponseEntity.status(400).body(new ApiResponse(response));
